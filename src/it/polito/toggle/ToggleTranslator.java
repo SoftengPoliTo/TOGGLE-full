@@ -419,6 +419,7 @@ public class ToggleTranslator {
 				
 				File copied_screen_for_eyestudio = new File(current_eyescript_folder + i.getTimestamp() + "_cropped.png");
 				
+				
 				Utils.copyFile(i.getCropped_screenshot_file(), copied_screen_for_eyestudio);
 
 			}
