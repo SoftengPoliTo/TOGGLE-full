@@ -43,15 +43,21 @@ public class Enhancer {
 			.parseStatement("Instrumentation instr = InstrumentationRegistry.getInstrumentation();");
 	private Statement device = JavaParser.parseStatement("UiDevice device = UiDevice.getInstance(instr);");
 	private Statement firstTestDate = JavaParser.parseStatement("Date now = new Date();");
+	private Statement firstLogNum = JavaParser.parseStatement("int num = 0;");
 	private Statement date = JavaParser.parseStatement("now = new Date();");
+	private Statement LogNum = JavaParser.parseStatement("num++;"); 
 	private Statement firstTestActivity = JavaParser
 			.parseStatement("Activity activityTOGGLETools = getActivityInstance();");
 	private Statement activity = JavaParser.parseStatement("activityTOGGLETools = getActivityInstance();");
 	private Statement captureTaskValue = JavaParser.parseStatement(
 			"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTask(now, activityTOGGLETools));");
+	private Statement captureTaskValueProgressive = JavaParser.parseStatement(
+			"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTaskProgressive(num, activityTOGGLETools));");
 	private TryStmt screenCapture = (TryStmt) JavaParser
 			.parseStatement("try { runOnUiThread(capture_task); } catch (Throwable t) { t.printStackTrace(); }");
-	private Statement dumpScreen = JavaParser.parseStatement("TOGGLETools.DumpScreen(now, device);");
+	//private Statement dumpScreen = JavaParser.parseStatement("TOGGLETools.DumpScreen(now, device);");
+	private Statement dumpScreenProgressive = JavaParser.parseStatement("TOGGLETools.DumpScreenProgressive(num, device);");
+	
 	private TryStmt tryStmt = (TryStmt) JavaParser.parseStatement(
 			"try {\n" + "            Thread.sleep(1000);\n" + "        } catch (Exception e) {\n" + "\n" + "        }");
 
@@ -772,12 +778,18 @@ public class Enhancer {
 					String stmtString = s.toString();
 					Statement st = JavaParser.parseStatement(stmtString);
 
-					b.addStatement(i, date);
+					//b.addStatement(i, date);
+					b.addStatement(i, LogNum);
 					b.addStatement(++i, activity);
-					b.addStatement(++i, captureTaskValue);
+				//	b.addStatement(++i, captureTaskValue);
+					b.addStatement(++i, JavaParser.parseStatement(
+							"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTaskProgressive(num, \"" + methodName + "\", activityTOGGLETools));"));
+					
+
 					b.addStatement(++i, screenCapture);
 					i = addLogInteractionToCu(log, i, b);
-					b.addStatement(++i, dumpScreen);
+					//b.addStatement(++i, dumpScreen);
+					b.addStatement(++i, JavaParser.parseStatement("TOGGLETools.DumpScreenProgressive(num, \"" +methodName + "\", device);"));
 					b.addStatement(++i, st);
 					b.addStatement(++i, tryStmt);
 
@@ -839,25 +851,32 @@ public class Enhancer {
 						b.addStatement(i, captureTask);
 						b.addStatement(++i, instrumentation);
 						b.addStatement(++i, device);
-						b.addStatement(++i, firstTestDate);
+						b.addStatement(++i, firstLogNum);
+						//b.addStatement(++i, firstTestDate);
 						b.addStatement(++i, firstTestActivity);
 					} else if (j == 3 && interactionType.equals("check") || j == 2) {
-						b.addStatement(i, date);
+						b.addStatement(i, LogNum);
+						//b.addStatement(i, date);
 						b.addStatement(++i, activity);
 
 						// this makes it work on test cases with multiple interactions avoiding the try
 						// statements to stay to the bottom
 					} else {
-						b.addStatement(++i, date);
+						//b.addStatement(++i, date);
+						b.addStatement(++i, LogNum);
 						b.addStatement(++i, activity);
 					}
 
-					b.addStatement(++i, captureTaskValue);
+					//b.addStatement(++i, captureTaskValue);
+					b.addStatement(++i, JavaParser.parseStatement(
+							"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTaskProgressive(num, \"" + methodName + "\", activityTOGGLETools));"));
+
 					b.addStatement(++i, screenCapture);
 
 					i = addLogInteractionToCu(log, i, b);
 
-					b.addStatement(++i, dumpScreen);
+					//b.addStatement(++i, dumpScreen);
+					b.addStatement(++i, JavaParser.parseStatement("TOGGLETools.DumpScreenProgressive(num, \"" +methodName + "\", device);"));
 					b.addStatement(++i, st);
 					b.addStatement(++i, tryStmt);
 				}
@@ -916,17 +935,23 @@ public class Enhancer {
 				b.addStatement(i, captureTask);
 				b.addStatement(++i, instrumentation);
 				b.addStatement(++i, device);
-				b.addStatement(++i, firstTestDate);
+				//b.addStatement(++i, firstTestDate);
+				b.addStatement(++i, firstLogNum);
 				b.addStatement(++i, firstTestActivity);
 			} else {
-				b.addStatement(i, date);
+				//b.addStatement(i, date);
+				b.addStatement(i, LogNum);
 				b.addStatement(++i, activity);
 			}
 
 			// first screen capture before scrolling
-			b.addStatement(++i, captureTaskValue);
+		//	b.addStatement(++i, captureTaskValue);
+			b.addStatement(++i, JavaParser.parseStatement(
+					"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTaskProgressive(num, \"" + methodName + "\", activityTOGGLETools));"));
+
 			b.addStatement(++i, screenCapture);
-			b.addStatement(++i, dumpScreen);
+			//b.addStatement(++i, dumpScreen);
+			b.addStatement(++i, JavaParser.parseStatement("TOGGLETools.DumpScreenProgressive(num, \"" +methodName + "\", device);"));
 
 			LogCat log = new LogCat(methodName, "id", "\"" + listId + "\"", "scrollto", "");
 			i = addLogInteractionToCu(log, i, b);
@@ -949,14 +974,18 @@ public class Enhancer {
 			// populate data in variables
 			b.addStatement(++i, populateDataFromList);
 
-			b.addStatement(++i, date);
+			//b.addStatement(++i, date);
+			b.addStatement(++i, LogNum);
 			// log scrollTo interaction with parameters
 			log = new LogCat(methodName, "id", "\"" + listId + "\"", "scrollto",
 					"scrolly" + listId + "+\";\"+height+\";\"+offset");
 			i = addLogInteractionToCu(log, i, b);
 
 			// second screen capture after scrolling
-			b.addStatement(++i, captureTaskValue);
+		//	b.addStatement(++i, captureTaskValue);
+			b.addStatement(++i, JavaParser.parseStatement(
+					"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTaskProgressive(num, \"" + methodName + "\", activityTOGGLETools));"));
+
 			b.addStatement(++i, screenCapture);
 
 			// take the interaction to perform on the list
@@ -979,7 +1008,8 @@ public class Enhancer {
 				log = new LogCat(methodName, "id", "\"" + listId + "\"", interactionType, interactionParams);
 				i = addLogInteractionToCu(log, i, b);
 
-				b.addStatement(++i, dumpScreen);
+				//b.addStatement(++i, dumpScreen);
+				b.addStatement(++i, JavaParser.parseStatement("TOGGLETools.DumpScreenProgressive(num, \"" +methodName + "\", device);"));
 				b.addStatement(++i, st);
 				b.addStatement(++i, tryStmt);
 			}
@@ -1089,10 +1119,19 @@ public class Enhancer {
 
 					b.addStatement(++i, JavaParser.parseStatement(stmt));
 
-					l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName()
-							+ "\", " + "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + ","
-							+ "\"" + log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 1)
-							+ ")+\";\"+" + log.getInteractionParams() + ");");
+					
+					
+					l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num, " + "\"" + log.getMethodName()
+					+ "\", " + "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + ","
+					+ "\"" + log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 1)
+					+ ")+\";\"+" + log.getInteractionParams() + ");");
+
+					
+					
+					//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName()
+					//		+ "\", " + "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + ","
+					//		+ "\"" + log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 1)
+					//		+ ")+\";\"+" + log.getInteractionParams() + ");");
 				} else {
 					stmt = "String searchKw = \"" + log.getSearchKw() + "\";";
 					String stmt2 = "int textToBeReplacedLength" + i + " = searchKw.length();";
@@ -1100,10 +1139,17 @@ public class Enhancer {
 					b.addStatement(++i, JavaParser.parseStatement(stmt));
 					b.addStatement(++i, JavaParser.parseStatement(stmt2));
 
-					l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName()
-							+ "\", " + "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + ","
-							+ "\"" + log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 2)
-							+ ")+\";\"+" + log.getInteractionParams() + ");");
+					
+					l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num, " + "\"" + log.getMethodName()
+					+ "\", " + "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + ","
+					+ "\"" + log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 2)
+					+ ")+\";\"+" + log.getInteractionParams() + ");");
+					
+					
+					//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName()
+					//		+ "\", " + "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + ","
+					//		+ "\"" + log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 2)
+					//		+ ")+\";\"+" + log.getInteractionParams() + ");");
 				}
 			} else {
 				if (log.getSearchType().equals("id"))
@@ -1114,10 +1160,16 @@ public class Enhancer {
 
 				b.addStatement(++i, JavaParser.parseStatement(stmt));
 
-				l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName() + "\","
+
+				l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num, " + "\"" + log.getMethodName() + "\","
 						+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
 						+ log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 1) + ")+\";\"+"
 						+ log.getInteractionParams() + ");");
+
+				//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName() + "\","
+				//		+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
+				//		+ log.getInteractionType() + "\", String.valueOf(textToBeReplacedLength" + (i - 1) + ")+\";\"+"
+				//		+ log.getInteractionParams() + ");");
 
 			}
 			break;
@@ -1131,19 +1183,27 @@ public class Enhancer {
 							+ log.getSearchKw() + ")).getText().length();";
 					b.addStatement(++i, JavaParser.parseStatement(stmt));
 
-					l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+					l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num," + "\"" + log.getMethodName() + "\","
 							+ "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + "," + "\""
 							+ log.getInteractionType() + "\", String.valueOf(textToBeClearedLength" + (i - 1) + "));");
+					
+					//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+					//		+ "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + "," + "\""
+					//		+ log.getInteractionType() + "\", String.valueOf(textToBeClearedLength" + (i - 1) + "));");
 				} else {
 					stmt = "String searchKw = \"" + log.getSearchKw() + "\";";
 					String stmt2 = "int textToBeClearedLength" + i + " = searchKw.length();";
 
 					b.addStatement(++i, JavaParser.parseStatement(stmt));
 					b.addStatement(++i, JavaParser.parseStatement(stmt2));
-
-					l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+					
+					l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num," + "\"" + log.getMethodName() + "\","
 							+ "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + "," + "\""
 							+ log.getInteractionType() + "\", String.valueOf(textToBeClearedLength" + (i - 2) + "));");
+
+					//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+					//		+ "\"" + log.getSearchType() + "\"" + "," + "\"" + log.getSearchKw() + "\"" + "," + "\""
+					//		+ log.getInteractionType() + "\", String.valueOf(textToBeClearedLength" + (i - 2) + "));");
 				}
 			} else {
 				if (log.getSearchType().equals("id"))
@@ -1154,9 +1214,14 @@ public class Enhancer {
 
 				b.addStatement(++i, JavaParser.parseStatement(stmt));
 
-				l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+				
+				l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num," + "\"" + log.getMethodName() + "\","
 						+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
 						+ log.getInteractionType() + "\", String.valueOf(textToBeClearedLength" + (i - 1) + "));");
+				
+				//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+				//		+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
+				//		+ log.getInteractionType() + "\", String.valueOf(textToBeClearedLength" + (i - 1) + "));");
 			}
 			break;
 		case "presskey":
@@ -1173,9 +1238,14 @@ public class Enhancer {
 			b.addStatement(++i, keyArray);
 			b.addStatement(++i, ifStmt);
 
-			stmt = "TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\"," + "\"" + log.getSearchType()
+
+			stmt = "TOGGLETools.LogInteractionProgressive(num," + "\"" + log.getMethodName() + "\"," + "\"" + log.getSearchType()
 					+ "\"" + "," + log.getSearchKw() + "," + "\"" + log.getInteractionType() + "\"" + ", espressoKeyVal"
 					+ (i - 3) + ");";
+			
+			//stmt = "TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\"," + "\"" + log.getSearchType()
+			//		+ "\"" + "," + log.getSearchKw() + "," + "\"" + log.getInteractionType() + "\"" + ", espressoKeyVal"
+			//		+ (i - 3) + ");";
 
 			l = JavaParser.parseStatement(stmt);
 
@@ -1185,27 +1255,45 @@ public class Enhancer {
 		case "closekeyboard":
 		case "openactionbaroverfloworoptionsmenu":
 		case "opencontextualactionmodeoverflowmenu":
-			l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName() + "\","
+			l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num, " + "\"" + log.getMethodName() + "\","
 					+ "\"-\", \"-\"," + "\"" + log.getInteractionType() + "\"" + ");");
+			
+			
+			//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName() + "\","
+			//		+ "\"-\", \"-\"," + "\"" + log.getInteractionType() + "\"" + ");");
 			break;
 			
 			
 		case "typeintofocused":
 			
 			System.out.println(log.getInteractionParams());
-			l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName() + "\","
+			l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num, " + "\"" + log.getMethodName() + "\","
 					+ "\"-\", \"-\"," + "\"" + log.getInteractionType() + "\", \"" + log.getInteractionParams() + "\"" + ");");
+			
+			
+			//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now, " + "\"" + log.getMethodName() + "\","
+			//		+ "\"-\", \"-\"," + "\"" + log.getInteractionType() + "\", \"" + log.getInteractionParams() + "\"" + ");");
 			break;
 
 		default:
 			if (log.getInteractionParams().isEmpty())
-				l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+				l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num," + "\"" + log.getMethodName() + "\","
 						+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
 						+ log.getInteractionType() + "\"" + ");");
+			
+				
+				//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+				//		+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
+				//		+ log.getInteractionType() + "\"" + ");");
 			else
-				l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+				
+				l = JavaParser.parseStatement("TOGGLETools.LogInteractionProgressive(num," + "\"" + log.getMethodName() + "\","
 						+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
 						+ log.getInteractionType() + "\"" + "," + log.getInteractionParams() + ");");
+			
+				//l = JavaParser.parseStatement("TOGGLETools.LogInteraction(now," + "\"" + log.getMethodName() + "\","
+				//		+ "\"" + log.getSearchType() + "\"" + "," + log.getSearchKw() + "," + "\""
+				//		+ log.getInteractionType() + "\"" + "," + log.getInteractionParams() + ");");
 			break;
 		}
 
@@ -1218,21 +1306,32 @@ public class Enhancer {
 	private void addFullCheck(BlockStmt b, String methodName, int i) {
 		Statement currDisp = JavaParser
 				.parseStatement("Rect currdisp = TOGGLETools.GetCurrentDisplaySize(activityTOGGLETools);");
-
-		String stmt = "TOGGLETools.LogInteraction(now," + "\"" + methodName
+		
+		
+		String stmt = "TOGGLETools.LogInteractionProgressive(num," + "\"" + methodName
 				+ "\",\"-\", \"-\", \"fullcheck\", currdisp.bottom+\";\"+currdisp.top+\";\"+currdisp.right+\";\"+currdisp.left);";
+		
+		
+		
+		//String stmt = "TOGGLETools.LogInteraction(now," + "\"" + methodName
+		//		+ "\",\"-\", \"-\", \"fullcheck\", currdisp.bottom+\";\"+currdisp.top+\";\"+currdisp.right+\";\"+currdisp.left);";
 		Statement log = JavaParser.parseStatement(stmt);
 
 		// if (i > b.getStatements().size())
 		// --i;
 
-		b.addStatement(i, date);
+		//b.addStatement(i, date);
+		b.addStatement(i, LogNum);
 		b.addStatement(++i, activity);
-		b.addStatement(++i, captureTaskValue);
+	//	b.addStatement(++i, captureTaskValue);
+		b.addStatement(++i, JavaParser.parseStatement(
+				"capture_task = new FutureTask<Boolean> (new TOGGLETools.TakeScreenCaptureTaskProgressive(num, \"" + methodName + "\", activityTOGGLETools));"));
+
 		b.addStatement(++i, currDisp);
 		b.addStatement(++i, screenCapture);
 		b.addStatement(++i, log);
-		b.addStatement(++i, dumpScreen);
+		//b.addStatement(++i, dumpScreen);
+		b.addStatement(++i, JavaParser.parseStatement("TOGGLETools.DumpScreenProgressive(num, \"" +methodName + "\", device);"));
 	}
 
 }

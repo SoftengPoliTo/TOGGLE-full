@@ -36,7 +36,6 @@ public class Main {
 		}
 
 		
-		
 	}
 	
 	
@@ -64,8 +63,8 @@ public class Main {
 		
 		
 		//enhancement of a test class
-		en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
-
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
+		
 		
 		
 		
