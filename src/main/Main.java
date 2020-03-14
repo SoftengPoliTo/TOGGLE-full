@@ -63,7 +63,7 @@ public class Main {
 		
 		
 		//enhancement of a test class
-		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
+	//	en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
 		
 		
 		
@@ -73,13 +73,13 @@ public class Main {
 		
 		
 		
-		
+	
 		//execution of an enhanced test class
-		long st = System.currentTimeMillis();
+	/*	long st = System.currentTimeMillis();
 		executeEnhancedEspresso(testPackage, enhancedClassName, instrumentation);
 		long et = System.currentTimeMillis();
 		System.out.println("time to execute " + (et - st));
-		
+		*/
 		
 		
 		

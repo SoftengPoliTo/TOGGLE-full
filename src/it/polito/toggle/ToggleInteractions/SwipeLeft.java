@@ -29,6 +29,7 @@ public class SwipeLeft extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 
 		res.add("sleep(1)");
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
 		res.add("r = find(\"" + timestamp + "_cropped.png\")");
 		res.add("start = r.getCenter()");
 		res.add("stepX = 250");
@@ -50,7 +51,8 @@ public class SwipeLeft extends ToggleInteraction {
 
 		
 		ArrayList<String> res = new ArrayList<>();
-	
+		res.add("Check \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
+
 		res.add("Move \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		res.add("Sleep 10");
 		res.add("MouseLeftPress");
@@ -110,6 +112,8 @@ public class SwipeLeft extends ToggleInteraction {
 
 		res.add("try {");
 
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
+
 		res.add("\torg.sikuli.script.Match sikuli_match = sikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\",  "\\\\") + "\");");
 		res.add("\torg.sikuli.script.Location l = sikuli_match.getCenter();");
 		res.add("\tsikuli_screen.mouseMove(l);");
@@ -146,6 +150,7 @@ public class SwipeLeft extends ToggleInteraction {
 		res.add("\t\teyeautomate_failures++;");
 		res.add("\t\ttry {");
 
+		res.add("\t\t\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 25);");
 		res.add("\t\t\torg.sikuli.script.Match sikuli_match = sikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\",  "\\\\") + "\");");
 		res.add("\t\t\torg.sikuli.script.Location l = sikuli_match.getCenter();");
 		res.add("\t\t\tsikuli_screen.mouseMove(l);");
@@ -196,6 +201,8 @@ public class SwipeLeft extends ToggleInteraction {
 		
 		
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 5);");
+
 		res.add("\torg.sikuli.script.Match sikuli_match = sikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\",  "\\\\") + "\");");
 		res.add("\torg.sikuli.script.Location l= sikuli_match.getCenter();");
 		res.add("\tsikuli_screen.mouseMove(l);");

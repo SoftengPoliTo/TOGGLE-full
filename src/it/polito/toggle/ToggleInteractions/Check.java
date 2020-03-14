@@ -28,7 +28,7 @@ public class Check extends ToggleInteraction {
 			
 		ArrayList<String> res = new ArrayList<>();
 
-		res.add("find(\"" + timestamp + "_cropped.png\")");
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
 		
 		return res;
 
@@ -78,7 +78,7 @@ public class Check extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 		
 		res.add("try {");
-		res.add("\tsikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
 		res.add("}");
 		res.add("catch (FindFailed ffe) {");
 		res.add("\tffe.printStackTrace();");

@@ -36,6 +36,7 @@ public class ClearText extends ToggleInteraction {
 	public ArrayList<String> generateEyeStudioLines() {
 
 		ArrayList<String> res = new ArrayList<>();
+		res.add("Check \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 
 		res.add("Click \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		for (int i = 0; i < previous_text_length; i++) {
@@ -51,7 +52,8 @@ public class ClearText extends ToggleInteraction {
 	public ArrayList<String> generateSikuliLines() {
 
 		ArrayList<String> res = new ArrayList<>();
-		
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
+
 		res.add("click(\"" + timestamp + "_cropped.png\")");
 		for (int i = 0; i < previous_text_length; i++) {
 			res.add("type(Key.BACKSPACE)");
@@ -96,6 +98,8 @@ public class ClearText extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
+
 		res.add("\tsikuli_screen.click(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 
 		for (int i = 0; i < previous_text_length; i++) {

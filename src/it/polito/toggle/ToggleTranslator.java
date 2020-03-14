@@ -233,7 +233,7 @@ public class ToggleTranslator {
 		
 		res.add("\tSystem.out.println(\"Starting test + " + package_name + "/" + class_name + "/" + test_name + "(" + interactions.size() + "interactions)\");");
 		res.add("\tEye eye = new Eye();");
-		res.add("\teye.setTimeout(5);");
+		res.add("\teye.setTimeout(30);");
 		res.add("\teye.setRecognitionMode(Eye.RecognitionMode.TOLERANT);");
 		res.add("\tBufferedImage image = null;");
 		res.add("\tMatch match = null;");
@@ -272,7 +272,7 @@ public class ToggleTranslator {
 
 		res.add("\tSystem.out.println(\"Starting test + " + package_name + "/" + class_name + "/" + test_name + "(" + interactions.size() + "interactions)\");");
 		res.add("\tScreen sikuli_screen = new Screen();");
-		res.add("\tsikuli_screen.setAutoWaitTimeout(5);");
+		res.add("\tsikuli_screen.setAutoWaitTimeout(30);");
 
 		res.add("\tint interactions = 0;");
 		
@@ -311,7 +311,7 @@ public class ToggleTranslator {
 		res.add("\tScreen sikuli_screen = new Screen();");
 		res.add("\tsikuli_screen.setAutoWaitTimeout(5);");
 		res.add("\tEye eye = new Eye();");
-		res.add("\teye.setTimeout(5);");
+		res.add("\teye.setTimeout(25);");
 		res.add("\teye.setRecognitionMode(Eye.RecognitionMode.TOLERANT);");
 		res.add("\tBufferedImage image = null;");
 		res.add("\tMatch match = null;");
@@ -354,7 +354,7 @@ public class ToggleTranslator {
 
 		res.add("\tSystem.out.println(\"Starting test + " + package_name + "/" + class_name + "/" + test_name + "(" + interactions.size() + "interactions)\");");
 		res.add("\tScreen sikuli_screen = new Screen();");
-		res.add("\tsikuli_screen.setAutoWaitTimeout(5);");
+		res.add("\tsikuli_screen.setAutoWaitTimeout(25);");
 		res.add("\tEye eye = new Eye();");
 		res.add("\teye.setTimeout(5);");
 		res.add("\teye.setRecognitionMode(Eye.RecognitionMode.TOLERANT);");
@@ -401,7 +401,7 @@ public class ToggleTranslator {
 
 		
 		bw.write("Set ImageFolder \"" + current_eyescript_folder +"\"\n");
-		bw.write("Timeout 5\n");
+		bw.write("Timeout 30\n");
 		bw.newLine();
 		
 		for (ToggleInteraction i:interactions) {

@@ -28,6 +28,9 @@ public class Click extends ToggleInteraction {
 			
 		ArrayList<String> res = new ArrayList<>();
 
+		
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
+
 		res.add("click(\"" + timestamp + "_cropped.png\")");
 		
 		return res;
@@ -41,6 +44,8 @@ public class Click extends ToggleInteraction {
 		
 		ArrayList<String> res = new ArrayList<>();
 	
+		res.add("Check \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
+
 		res.add("Click \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		
 		return res;
@@ -80,6 +85,7 @@ public class Click extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 		
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
 		res.add("\tsikuli_screen.click(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("}");
 		res.add("catch (FindFailed ffe) {");
@@ -106,6 +112,7 @@ public class Click extends ToggleInteraction {
 		//sikuli alternative
 		res.add("\t\teyeautomate_failures++;");
 		res.add("\t\ttry {");
+		res.add("\t\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 25);");
 		res.add("\t\t\tsikuli_screen.click(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\t\t}");
 		res.add("\t\tcatch (FindFailed ffe) {");
@@ -134,6 +141,7 @@ public class Click extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<String>();
 		
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 5);");
 		res.add("\tsikuli_screen.click(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("}");
 		res.add("catch (FindFailed ffe) {");

@@ -32,7 +32,7 @@ public class FullCheck extends ToggleInteraction {
 			
 		ArrayList<String> res = new ArrayList<>();
 
-		res.add("find(\"" + timestamp + "_cropped.png\")");
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
 		
 		return res;
 
@@ -95,7 +95,7 @@ public class FullCheck extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 		
 		res.add("try {");
-		res.add("\tsikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
 		res.add("}");
 		res.add("catch (FindFailed ffe) {");
 		res.add("\tffe.printStackTrace();");
@@ -125,7 +125,7 @@ public class FullCheck extends ToggleInteraction {
 		res.add("\tif (match == null) {");
 		res.add("\t\teyeautomate_failures++;");
 		res.add("\t\ttry {");
-		res.add("\t\t\tsikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
+		res.add("\t\t\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 25);");
 		res.add("\t\t}");
 		res.add("\t\tcatch (FindFailed ffe) {");
 		res.add("\t\t\tffe.printStackTrace();");
@@ -154,7 +154,7 @@ public class FullCheck extends ToggleInteraction {
 		
 		
 		res.add("try {");
-		res.add("\tsikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 5);");
 		res.add("}");
 		res.add("catch (FindFailed ffe) {");
 		res.add("\tsikuli_failures++;");

@@ -29,6 +29,7 @@ public class LongClick extends ToggleInteraction {
 			
 		ArrayList<String> res = new ArrayList<>();
 
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
 		res.add("hover(\"" + timestamp + "_cropped.png\")");
 		res.add("mouseDown(Button.LEFT)");
 		res.add("sleep(0.5)");
@@ -45,6 +46,7 @@ public class LongClick extends ToggleInteraction {
 		
 		ArrayList<String> res = new ArrayList<>();
 	
+		res.add("Check \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		res.add("Move \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		res.add("MouseLeftPress");
 		res.add("Sleep 600");
@@ -90,6 +92,7 @@ public class LongClick extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
 		res.add("\tsikuli_screen.mouseMove(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\tThread.sleep(600);");
@@ -120,6 +123,7 @@ public class LongClick extends ToggleInteraction {
 		res.add("\tif (match == null) {");
 		res.add("\t\teyeautomate_failures++;");
 		res.add("\t\ttry {");
+		res.add("\t\t\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 25);");
 		res.add("\t\t\tsikuli_screen.mouseMove(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\t\t\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\t\t\tThread.sleep(600);");
@@ -157,6 +161,7 @@ public class LongClick extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<String>();
 		
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 5);");
 		res.add("\tsikuli_screen.mouseMove(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\tThread.sleep(600);");

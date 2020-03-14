@@ -27,7 +27,7 @@ public class DoubleClick extends ToggleInteraction {
 		
 			
 		ArrayList<String> res = new ArrayList<>();
-
+		res.add("wait(\"" + timestamp + "_cropped.png\", 30)");
 		res.add("hover(\"" + timestamp + "_cropped.png\")");
 		res.add("mouseDown(Button.LEFT)");
 		res.add("sleep(0.001)");
@@ -47,7 +47,7 @@ public class DoubleClick extends ToggleInteraction {
 
 		
 		ArrayList<String> res = new ArrayList<>();
-	
+		res.add("Check \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		res.add("Move \"{ImageFolder}\\" + timestamp + "_cropped.png\"");
 		res.add("MouseDoubleClick");
 
@@ -87,6 +87,7 @@ public class DoubleClick extends ToggleInteraction {
 		ArrayList<String> res = new ArrayList<>();
 
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 30);");
 		res.add("\tsikuli_screen.mouseMove(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\tsleep(0.001);");
@@ -118,6 +119,7 @@ public class DoubleClick extends ToggleInteraction {
 		res.add("\t\teyeautomate_failures++;");
 
 		res.add("\t\ttry {");
+		res.add("\t\t\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 25);");
 		res.add("\t\t\tsikuli_screen.mouseMove(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\t\t\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\t\t\tsleep(0.001);");
@@ -157,6 +159,7 @@ public class DoubleClick extends ToggleInteraction {
 		
 		
 		res.add("try {");
+		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 5);");
 		res.add("\tsikuli_screen.mouseMove(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\");");
 		res.add("\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\tsleep(0.001);");
