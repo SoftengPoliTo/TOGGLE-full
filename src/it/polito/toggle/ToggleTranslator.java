@@ -158,7 +158,7 @@ public class ToggleTranslator {
 
 		String line_data = separated[1];
 				
-		String[] separated2 = line_data.split(", ");
+		String[] separated2 = line_data.split("; ");
 		
 		System.out.println(line);
 		

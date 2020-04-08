@@ -63,11 +63,12 @@ public class Main {
 		
 		
 		//enhancement of a test class
-	//	en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
 		
 		
 		
-		
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\StudioProjects\\Travel-Mate-master\\Android\\app\\src\\androidTest\\java\\io\\github\\project_travel_mate\\HomeMenuTest.java");
+
 		
 		
 		
@@ -89,13 +90,17 @@ public class Main {
 		
 		
 		//translation of instructions
-		
+	
 		long time_for_script_creation_before = System.currentTimeMillis();
 
 		ArrayList<String> tests = new ArrayList<String>();
-		tests.add("testSearchUnsearchUpdates");
-		ToggleClassManager tcm = new ToggleClassManager("TestInterfaceBasicTry", "ar.rulosoft.mimanganu", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
-		
+		tests.add("testCompass");
+		tests.add("testHomeMenu");
+		tests.add("testPopularCities");
+		tests.add("testChecklist");
+		//ToggleClassManager tcm = new ToggleClassManager("TestInterfaceBasicTry", "ar.rulosoft.mimanganu", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
+		ToggleClassManager tcm = new ToggleClassManager("HomeMenuTest", "io.github.project_travel_mate", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
+
 		
 		ArrayList<String> result_class = tcm.createClass();
 		for (String s: result_class) {
@@ -114,9 +119,9 @@ public class Main {
 		tt.saveCroppedScreenshots(interactions);
 		tt.createEyeStudioScript(interactions);
 		tt.createSikuliScript(interactions);
-		//tt.createEyeAutomateJavaMethod(interactions);
-		//tt.createSikuliJavaMethod(interactions);
-		//tt.createCombinedJavaMethod(interactions);
+		tt.createEyeAutomateJavaMethod(interactions);
+		tt.createSikuliJavaMethod(interactions);
+		tt.createCombinedJavaMethod(interactions);
 		long time_for_script_creation_after = System.currentTimeMillis();
 
 		System.out.println("time to translate " + (time_for_script_creation_after - time_for_script_creation_before));
