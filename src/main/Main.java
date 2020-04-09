@@ -67,7 +67,7 @@ public class Main {
 		
 		
 		
-		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\StudioProjects\\Travel-Mate-master\\Android\\app\\src\\androidTest\\java\\io\\github\\project_travel_mate\\HomeMenuTest.java");
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\StudioProjects\\Travel-Mate-master\\Android\\app\\src\\androidTest\\java\\io\\github\\project_travel_mate\\TripsTest.java");
 
 		
 		
@@ -94,12 +94,12 @@ public class Main {
 		long time_for_script_creation_before = System.currentTimeMillis();
 
 		ArrayList<String> tests = new ArrayList<String>();
-		tests.add("testCompass");
-		tests.add("testHomeMenu");
-		tests.add("testPopularCities");
-		tests.add("testChecklist");
+		//tests.add("testEmptyTripsAtBeginning");
+		//tests.add("testAddAndRemoveTrip");
+		//tests.add("testTripInfoFields");
+		tests.add("testAddTwoTrips");
 		//ToggleClassManager tcm = new ToggleClassManager("TestInterfaceBasicTry", "ar.rulosoft.mimanganu", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
-		ToggleClassManager tcm = new ToggleClassManager("HomeMenuTest", "io.github.project_travel_mate", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
+		ToggleClassManager tcm = new ToggleClassManager("TripsTestEnhanced", "io.github.project_travel_mate", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
 
 		
 		ArrayList<String> result_class = tcm.createClass();

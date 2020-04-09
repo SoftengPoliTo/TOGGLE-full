@@ -1,5 +1,6 @@
 package it.polito.toggle.ToggleInteractions;
 
+import java.awt.MouseInfo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -113,9 +114,10 @@ public class SwipeUp extends ToggleInteraction {
 		res.add("		eye.move(match.getCenterLocation());\r\n" + 
 				"		Thread.sleep(20);\r\n" + 
 				"		bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);\r\n" + 
-				"		Thread.sleep(20);\r\n" + 
+				"		Thread.sleep(20);\r\n" +
+				"		int mov_y = (int) MouseInfo.getPointerInfo().getLocation().getY();" +
 				"		for (int i=0; i<100; i++){  \r\n" + 
-				"		    int mov_y = (((int)(MouseInfo.getPointerInfo().getLocation().getY() -250) * i)/100) + ((int)MouseInfo.getPointerInfo().getLocation().getY()*(100-i)/100);\r\n" + 
+				"		    mov_y -= 2.5;\n" + 
 				"		    bot.mouseMove((int)(MouseInfo.getPointerInfo().getLocation().getX()),mov_y);\r\n" + 
 				"		    bot.delay(10);\r\n" + 
 				"		}\r\n" + 
@@ -176,8 +178,9 @@ public class SwipeUp extends ToggleInteraction {
 				"		Thread.sleep(20);\r\n" + 
 				"		bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);\r\n" + 
 				"		Thread.sleep(20);\r\n" + 
+				"		int mov_y = (int) MouseInfo.getPointerInfo().getLocation().getY();" +
 				"		for (int i=0; i<100; i++){  \r\n" + 
-				"		    int mov_y = (((int)(MouseInfo.getPointerInfo().getLocation().getY() -250) * i)/100) + ((int)MouseInfo.getPointerInfo().getLocation().getY()*(100-i)/100);\r\n" + 
+				"		    mov_y -= 2.5;\n" + 
 				"		    bot.mouseMove((int)(MouseInfo.getPointerInfo().getLocation().getX()),mov_y);\r\n" + 
 				"		    bot.delay(10);\r\n" + 
 				"		}\r\n" + 

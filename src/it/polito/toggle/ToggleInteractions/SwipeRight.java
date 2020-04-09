@@ -109,8 +109,9 @@ public class SwipeRight extends ToggleInteraction {
 				"		Thread.sleep(20);\r\n" + 
 				"		bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);\r\n" + 
 				"		Thread.sleep(20);\r\n" + 
+				"		int mov_x = (int) MouseInfo.getPointerInfo().getLocation().getX();" +
 				"		for (int i=0; i<100; i++){  \r\n" + 
-				"		    int mov_x = (((int)(MouseInfo.getPointerInfo().getLocation().getX() +250) * i)/100) + ((int)MouseInfo.getPointerInfo().getLocation().getX()*(100-i)/100);\r\n" + 
+				"		    mov_x += 2.5;\n" + 
 				"		    bot.mouseMove(mov_x,(int)(MouseInfo.getPointerInfo().getLocation().getY()));\r\n" + 
 				"		    bot.delay(10);\r\n" + 
 				"		}\r\n" + 
@@ -169,7 +170,9 @@ public class SwipeRight extends ToggleInteraction {
 				"		Thread.sleep(20);\r\n" + 
 				"		bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);\r\n" + 
 				"		Thread.sleep(20);\r\n" + 
+				"		int mov_x = (int) MouseInfo.getPointerInfo().getLocation().getX();" +
 				"		for (int i=0; i<100; i++){  \r\n" + 
+				"		    mov_x += 2.5;\n" + 
 				"		    int mov_x = (((int)(MouseInfo.getPointerInfo().getLocation().getX() +250) * i)/100) + ((int)MouseInfo.getPointerInfo().getLocation().getX()*(100-i)/100);\r\n" + 
 				"		    bot.mouseMove(mov_x,(int)(MouseInfo.getPointerInfo().getLocation().getY()));\r\n" + 
 				"		    bot.delay(10);\r\n" + 
