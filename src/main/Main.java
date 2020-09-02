@@ -44,17 +44,19 @@ public class Main {
 		String logcat_filename = "logcat.txt";
 		List<ToggleInteraction> interactions = new ArrayList<>();
 		String starting_folder = "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest";
-		String testPackage = "ar.rulosoft.mimanganu";
+		String testPackage = "it.feio.android.omninotes";
 		String className = "TestInterfaceBasicTry";
 		String enhancedClassName = "TestInterfaceBasicTryEnhanced";
 		String test_name = "testSearchUnsearchUpdates";
 		String logcat_tool_tag = "touchtest";
-		String instrumentation="ar.rulosoft.mimanganu.test/android.support.test.runner.AndroidJUnitRunner";
+		//String instrumentation="ar.rulosoft.mimanganu.test/android.support.test.runner.AndroidJUnitRunner";
+		
+		
 		
 		
 		Enhancer en = new Enhancer("test");
 		
-		Utils.removeLogFiles();
+		//Utils.removeLogFiles();
 		
 
 		
@@ -63,7 +65,7 @@ public class Main {
 		
 		
 		//enhancement of a test class
-		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestInterfaceBasicTry.java");
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\MiMangaNu-master_oldgraphics\\MiMangaNu-master\\app\\src\\androidTest\\java\\ar\\rulosoft\\mimanganu\\TestAdvancedFeatures.java");
 		
 		
 		
@@ -71,21 +73,22 @@ public class Main {
 
 		
 		
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\StudioProjects\\k-9-master\\app\\k9mail\\src\\androidTest\\java\\com\\fsck\\k9\\debug\\MessageOperationsTest.java");
+		//en.generateEnhancedClassFrom("C:\\Omni-Notes-develop_oldgraphics\\Omni-Notes-develop\\omniNotes\\src\\androidTest\\java\\it\\feio\\android\\omninotes\\TestSearchChecklist.java");
+		//en.generateEnhancedClassFrom("C:\\Users\\Riccardo Coppola\\StudioProjects\\PassAndroid-2.5.0_oldgraphics\\PassAndroid-2.5.0\\app\\src\\androidTest\\java\\org\\ligi\\passandroid\\TestCreatePassTabs.java");
+
 		
+/*
 		
-		
-	
 		//execution of an enhanced test class
-	/*	long st = System.currentTimeMillis();
+		long st = System.currentTimeMillis();
 		executeEnhancedEspresso(testPackage, enhancedClassName, instrumentation);
 		long et = System.currentTimeMillis();
 		System.out.println("time to execute " + (et - st));
+		
 		*/
 		
 		
-		
-		
-
 		
 		
 		
@@ -94,12 +97,20 @@ public class Main {
 		long time_for_script_creation_before = System.currentTimeMillis();
 
 		ArrayList<String> tests = new ArrayList<String>();
-		//tests.add("testEmptyTripsAtBeginning");
-		//tests.add("testAddAndRemoveTrip");
-		//tests.add("testTripInfoFields");
+		tests.add("testTripInfoFields");
 		tests.add("testAddTwoTrips");
+		//tests.add("testChecklist");
+		//tests.add("testCompass");
+		
+		//tests.add("testRestaurantsSortRating");
+		//tests.add("testHangoutContent");
+		//tests.add("testSetUnsetStarTest");
+
+		//ToggleClassManager tcm = new ToggleClassManager("TestAdditionalFeatures", "it.feio.android.omninotes.alpha", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
 		//ToggleClassManager tcm = new ToggleClassManager("TestInterfaceBasicTry", "ar.rulosoft.mimanganu", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
-		ToggleClassManager tcm = new ToggleClassManager("TripsTestEnhanced", "io.github.project_travel_mate", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
+		ToggleClassManager tcm = new ToggleClassManager("TripsTest", "io.github.project_travel_mate", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
+		//ToggleClassManager tcm = new ToggleClassManager("MessageOperationsTest", "com.fsck.k9.debug", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
+		//ToggleClassManager tcm = new ToggleClassManager("TestAdvancedFeatures", "ar.rulosoft.mimanganu", "C:\\Users\\Riccardo Coppola\\Desktop\\touchtest", tests);
 
 		
 		ArrayList<String> result_class = tcm.createClass();
@@ -126,8 +137,8 @@ public class Main {
 
 		System.out.println("time to translate " + (time_for_script_creation_after - time_for_script_creation_before));
 
-		
-		
+
+	
 		
 		
 	}

@@ -79,7 +79,8 @@ public class SwipeDown extends ToggleInteraction {
 		res.add("\tl = l.below(250);");
 		res.add("\tsikuli_screen.mouseMove(l);");
 		res.add("\tsikuli_screen.mouseUp();");
-		
+		res.add("\t}");
+
 		res.add("catch (FindFailed ffe) {");
 		res.add("\tffe.printStackTrace();");
 		res.add("\treturn \"fail;\"+interactions;");
@@ -148,13 +149,15 @@ public class SwipeDown extends ToggleInteraction {
 		res.add("\t\t\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 25);");
 
 		res.add("\t\t\torg.sikuli.script.Match sikuli_match = sikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\",  "\\\\") + "\");");
-		res.add("\t\t\torg.sikuli.script.Location l = sikuli_match_1.getCenter();");
+		res.add("\t\t\torg.sikuli.script.Location l = sikuli_match.getCenter();");
 		res.add("\t\t\tsikuli_screen.mouseMove(l);");
 		res.add("\t\t\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\t\t\tsikuli_screen.wait(0.2);");
 		res.add("\t\t\tl = l.below(250);");
 		res.add("\t\t\tsikuli_screen.mouseMove(l);");
 		res.add("\t\t\tsikuli_screen.mouseUp();");
+		res.add("\t\t\t}");
+
 		
 		res.add("\t\tcatch (FindFailed ffe) {");
 		res.add("\t\t\tffe.printStackTrace();");
@@ -202,7 +205,7 @@ public class SwipeDown extends ToggleInteraction {
 		res.add("\tsikuli_screen.wait(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\", "\\\\") + "\", 5);");
 
 		res.add("\torg.sikuli.script.Match sikuli_match = sikuli_screen.find(\"" + new String(starting_folder + "\\" + timestamp + "_cropped.png").replace("\\",  "\\\\") + "\");");
-		res.add("\torg.sikuli.script.Location l = sikuli_match_1.getCenter();");
+		res.add("\torg.sikuli.script.Location l = sikuli_match.getCenter();");
 		res.add("\tsikuli_screen.mouseMove(l);");
 		res.add("\tsikuli_screen.mouseDown(Button.LEFT);");
 		res.add("\tsikuli_screen.wait(0.2);");

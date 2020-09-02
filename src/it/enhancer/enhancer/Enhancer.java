@@ -98,6 +98,8 @@ public class Enhancer {
 			System.out.println("");
 
 			String filenameEnhanced = folderPath + filename + "Enhanced.java";
+			
+			System.out.println("saving everything to " + filenameEnhanced);
 
 			// generate enhanced java file
 			PrintWriter w = new PrintWriter(filenameEnhanced, "UTF-8");

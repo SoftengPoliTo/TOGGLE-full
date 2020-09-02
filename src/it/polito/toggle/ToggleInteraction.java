@@ -222,14 +222,16 @@ public abstract class ToggleInteraction {
 		Document document = builder.parse(dump);
 			
 		Element root = document.getDocumentElement();
-			
+		System.out.println(root);
 		XPathFactory xPathfactory = XPathFactory.newInstance();
 		XPath xpath = xPathfactory.newXPath();			
 		XPathExpression expr = null;
 			
+		
 		if (search_type.equals("id")) {
 			expr = xpath.compile("//node[@resource-id=\"" + packagename + ":id/" + search_keyword + "\"]");
-		}
+			System.out.println("//node[@resource-id=\"" + packagename + ":id/" + search_keyword + "\"]");
+			}
 		else if (search_type.equals("text")) {
 			expr = xpath.compile("//node[@text=\"" + search_keyword + "\"]");
 			System.out.println("got with text");
@@ -243,8 +245,10 @@ public abstract class ToggleInteraction {
 		if (nl != null) 
 			for (int i=0; i<nl.getLength(); i++) {
 				bounds = (nl.item(i).getAttributes().getNamedItem("bounds").toString());
+
 			}
-			
+		
+
 		System.out.println("bounds = " + bounds);
 		String[] splitted_string = bounds.split("(\\[)|(\\])|((,))");
 						
